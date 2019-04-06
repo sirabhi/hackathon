@@ -150,7 +150,7 @@ peers = set()
 @app.route('/new_transaction', methods=['POST'])
 def new_transaction():
     tx_data = request.get_json()
-    required_fields = ["author", "content"]
+    required_fields = ["author", "content","to","money"]
 
     for field in required_fields:
         if not tx_data.get(field):
@@ -222,7 +222,7 @@ def register_with_existing_node():
     response = requests.post(node_address + "/register_node",
                              data=json.dumps(data), headers=headers)
 
-    if response.status_code == 200:
+    if response.status_code==200:
         global blockchain
         global peers
         # update chain and the peers

@@ -1,18 +1,10 @@
 import datetime
 import json
-
 import requests
 from flask import render_template, redirect, request
-
 from app import app
-
-# The node with which our application interacts, there can be multiple
-# such nodes as well.
 CONNECTED_NODE_ADDRESS = "http://127.0.0.1:8000"
-
 posts = []
-
-
 def fetch_posts():
     """
     Function to fetch the chain from a blockchain node, parse the
@@ -32,8 +24,6 @@ def fetch_posts():
         global posts
         posts = sorted(content, key=lambda k: k['timestamp'],
                        reverse=True)
-
-
 @app.route('/')
 def index():
     fetch_posts()
@@ -52,10 +42,15 @@ def submit_textarea():
     """
     post_content = request.form["content"]
     author = request.form["author"]
+    to=request.form["to"]
+    money=request.form["money"]
 
     post_object = {
         'author': author,
         'content': post_content,
+		'to':to,
+		'money':money
+		
     }
 
     # Submit a transaction
