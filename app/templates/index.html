@@ -1,31 +1,82 @@
 <!-- extend base layout -->
+
+    
 {% extends "base.html" %}
 
 {% block content %}
-	<br>
+<br>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  
+   <div class="first-column">
+   
+ <center>  
+balance:<p id="bal">10</p>
+New Balance:<p id="new">
+</center>
 
-	<center>
+</div>
+
+<div class="second-column" style="text-align: center;>
+<div class="si">
+<center>
 	<form action="/submit" id="textform" method="post">
 	    <textarea name="content" rows="4" cols="50" placeholder="Just write whatever you want to..."></textarea>
 	    <br>
 	    <input type="text" name="to" placeholder="To........">
-	    <input type="text" name="money" placeholder="money">
+	    <input type="text" name="money" id="i" placeholder="money">
 	    <input type="text" name="author" placeholder="Your name">
-	    <input type="submit" value="Post">
+	    <input type="button" onclick="display()" value="Post">
 	</form>
-	</center>
+    
+    
+	
 
-	<br>
-
-	<a href="{{node_address}}/mine" target="_blank"><button>Request to mine</button></a>
+<a href="{{node_address}}/mine" target="_blank"><button>Request to mine</button></a>
 	<a href="/"><button>Resync</button></a>
+    
+    </center>
+    </div>
+</div>
+<div class="third-column">
 
-	<div style="margin: 20px;">
+
+
+
+	
+
+
+
+<script>
+function display(){
+var g= document.getElementById('bal');
+var t = g.textContent;
+var number1 = Number(t);
+var  getamount= document.getElementById('i').value;
+var number2 = Number(getamount);
+var newbal=number1-number2;
+document.getElementById('new').innerHTML=newbal;
+}
+</script>
+
+
+
+
+	
+
+	
+ <div style="margin: 20px;"> 
+	
 
     {% for post in posts %}
     <div class="post_box">
+    
 	   <div class="post_box-header">
-	      <div class="post_box-options"><button class="option-btn">Reply</button></div>
+	      <div class="post_box-options"><button class="option-btn"><center>Reply</center></button></div>
 	      <div style="background: rgb(0, 97, 146) none repeat scroll 0% 0%; box-shadow: rgb(0, 97, 146) 0px 0px 0px 2px;" class="post_box-avatar">{{post.author[0]}}</div>
 	      <div class="name-header">{{post.author}}</div>
 		  <div class="name-header">{{post.to}}</div>
@@ -41,14 +92,55 @@
 	{% endfor %}
 
 	<style>
+    body{
+    background-color: lightblue;
+    }
+    .si{
+    margin-top:20px;
+    padding: 12px 0px 0px 12px;
+    }
+    
+    .first-column {
+    background-color: lightblue;
+    width: 20%;
+    padding: 0 10px 0 0;
+    float: left;
+    height:55%;
+}
+
+.second-column {
+background-color: lightblue;
+    width: 60%;
+    padding: 0 10px 0 0;
+    float: left;
+    height:55%;
+
+       
+}
+
+.third-column {
+    background-color: lightblue;
+    width: 20%;
+    height:55%;
+    padding: 0 10px 0 0;
+    float: right;
+    
+}
+
+
+    
+    
+    
+    
 		.post_box {
-		    background: #fff;
+		    background: white;
 		    padding: 12px 0px 0px 12px;
-		    margin-top: 0px;
+		    margin-top: 12px;
 		    margin-bottom: 8px;
-		    border-top: 1px solid #f0f0f0;
+		    
 		}
 		.post_box-header {
+            background-color:white;
 		    padding-bottom: 12px;
 		}
 		.post_box-avatar {
@@ -59,10 +151,10 @@
 		    justify-content: center;
 		    align-items: center;
 		    color: white;
-		    font-size: 22px;
+		    font-size: 28px;
 		    float: left;
 		    margin-right: 16px;
-		    border: 1px solid #fff;
+		    
 		    box-shadow: 0px 0px 0px 2px #f00;
 		}
 		.post_box-avatar::after {
@@ -73,7 +165,7 @@
 		    font-weight: bold;
 		}
 		.post_box-subtitle {
-		    color: #777;
+		    color: red;
 		}
 		.post_box-body {
 		    margin-top: 16px;
@@ -89,11 +181,38 @@
 		    padding: 7px;
 		    cursor: pointer;
 		    font-size: 14px;
+            margin-top:2px;
 		    margin-left: 2px;
 		    margin-right: 2px;
 		    outline: none;
 		    height: 42px;
 		}
+        
+        
+        .sidenav {
+  height:90%;
+  width: 110%;
+  
+  z-index: 1;
+  
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
 	</style>
     </div>
 {% endblock %}
